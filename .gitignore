@@ -1,0 +1,35 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Downloaded archives and dataset contents
+*.zip
+/data/sim/**
+!/data/sim/.gitkeep
+/data/real/**
+!/data/real/.gitkeep
+
+# Generated model weights and inference output
+/models/**
+!/models/.gitkeep
+/example/results/**
+!/example/results/.gitkeep
+/results/**
+!/results/.gitkeep

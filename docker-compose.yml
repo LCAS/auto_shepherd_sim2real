@@ -1,0 +1,34 @@
+services:
+  sim2real:
+    build: .
+    image: auto_shepherd_sim2real:local
+    gpus: all
+    working_dir: /workspace
+    volumes:
+      - ./src:/workspace/src
+      - ./data/sim:/workspace/data/sim
+      - ./data/real:/workspace/data/real
+      - ./example:/workspace/example
+      - ./models:/workspace/models
+      - huggingface_cache:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - INPUT_DIR=/workspace/example/input
+      - OUTPUT_DIR=/workspace/example/results
+      - LORA_PATH=/workspace/models/sim_to_real_lora
+    command: python src/app.py
+
+  data-downloader:
+    build: .
+    image: auto_shepherd_sim2real:local
+    profiles:
+      - tools
+    working_dir: /workspace
+    volumes:
+      - ./src:/workspace/src
+      - ./data/sim:/workspace/data/sim
+      - ./data/real:/workspace/data/real
+    entrypoint: ["python", "src/download_data.py"]
+
+volumes:
+  huggingface_cache:
